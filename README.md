@@ -27,5 +27,5 @@ sudo python3 app.py
 Access pi using your local browser http://**ip of pi**:8080/api/v1/ui/#/
 
 To run automatically add the following to the rc.local file by typing sudo nano /etc/rc.local before the exit command
->cd piRS232/piRS232
+>cd piRS232/piRS232<br>
 >sudo python3 app.py &
