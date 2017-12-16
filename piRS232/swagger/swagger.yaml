@@ -1,0 +1,130 @@
+---
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: "Home Automation"
+host: "10.0.0.171:8080"
+basePath: "/api/v1"
+produces:
+- "application/json"
+paths:
+  /ping:
+    get:
+      tags:
+      - "default_controller"
+      description: "API call test service running"
+      operationId: "controllers.default_controller.ping_get"
+      responses:
+        200:
+          description: "OK"
+  /status:
+    get:
+      tags:
+      - "default_controller"
+      description: "API call to get status"
+      operationId: "controllers.default_controller.status_get"
+      responses:
+        200:
+          description: "OK"
+  /lutron/status:
+    get:
+      tags:
+      - "default_controller"
+      description: "API call to get lutron light status for controller 1"
+      operationId: "controllers.default_controller.lutstatus1_get"
+      responses:
+        200:
+          description: "OK"
+  /lutron/status/{ctrl}:
+    get:
+      tags:
+      - "default_controller"
+      description: "API call to get lutron light status"
+      operationId: "controllers.default_controller.lutstatus_get"
+      parameters:
+      - name: "ctrl"
+        in: "path"
+        description: "controller identifier"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+  /lutron/sendszi/{ctrl}/{delay}/{values}:
+    get:
+      tags:
+      - "default_controller"
+      description: "API call to set light values for a controller"
+      operationId: "controllers.default_controller.lutsendszi_get"
+      parameters:
+      - name: "ctrl"
+        in: "path"
+        description: "controller identifier"
+        required: true
+        type: "string"
+      - name: "delay"
+        in: "path"
+        description: "delay in seconds"
+        required: true
+        type: "string"
+      - name: "values"
+        in: "path"
+        description: "string for command comma separated for each zone dash (-) or D0 used to leave zone unaffected"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+  /reboot:
+    post:
+      tags:
+      - "default_controller"
+      description: "API call to reboot host"
+      operationId: "controllers.default_controller.reboot_post"
+      responses:
+        200:
+          description: "OK"
+definitions:
+  errorModel:
+    type: "object"
+    required:
+    - "code"
+    - "message"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      message:
+        type: "string"
+  sensor:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      abilities:
+        type: "string"
+  power:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      abilities:
+        type: "string"
+      state:
+        type: "string"
+  jsonState:
+    type: "object"
+    properties:
+      result:
+        type: "string"
+  sensorReading:
+    type: "object"
+    properties:
+      reading:
+        type: "string"
+  powerState:
+    type: "object"
+    properties:
+      result:
+        type: "integer"
+        format: "int32"
