@@ -32,12 +32,12 @@ class Timeout():
 try:
  with Timeout(5):
   done = 0
-  if os.path.isfile("/home/pi/seriallock"):
+  if os.path.isfile("/home/pi/piRS232/seriallock"):
     json = '{"zones":"Locked"}'
     print (json)
     exit()
   else:
-    with open("/home/pi/seriallock", "w") as myfile:
+    with open("/home/pi/piRS232/seriallock", "w") as myfile:
       myfile.write('lock')
       myfile.close()
 
@@ -85,4 +85,4 @@ except:
   print (json)
 	
 finally:
-  os.remove("/home/pi/seriallock")
+  os.remove("/home/pi/piRS232/seriallock")

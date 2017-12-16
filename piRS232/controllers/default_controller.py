@@ -2,24 +2,12 @@ from subprocess import *
 from time import sleep, strftime
 from datetime import datetime
 import os.path
-from urllib.request import Request, urlopen
-from urllib.error import URLError, HTTPError
 import json
-import requests
 
 def run_cmd(cmd):
   p = Popen(cmd, shell=True, stdout=PIPE)
   output = p.communicate()[0]
   return output
-
-def getstate(retarr, lightnum):
-    ret = 0
-    for x in retarr:
-        if x.decode("ascii").find("lblRequest") > -1:
-            data = x.decode("ascii").split(">")[1].split(" ")
-            if data[lightnum] == "7f":
-                ret = 1
-    return ret
 
 def ping_get() -> str:
     myjson = {}
@@ -43,18 +31,17 @@ def status_get() -> str:
     return myjson
 
 def lutstatus1_get() -> str:
-    lut = json.loads(run_cmd('sudo python /home/pi/status.py 1').splitlines()[0].decode("ascii"))
+    lut = json.loads(run_cmd('sudo python /home/pi/piRS232/status.py 1').splitlines()[0].decode("ascii"))
     return lut
 
 def lutstatus_get(ctrl) -> str:
-    lut = json.loads(run_cmd('sudo python /home/pi/status.py {}'.format(ctrl)).splitlines()[0].decode("ascii"))
+    lut = json.loads(run_cmd('sudo python /home/pi/piRS232/status.py {}'.format(ctrl)).splitlines()[0].decode("ascii"))
     return lut
 
 def lutsendszi_get(ctrl,delay,values) -> str:
     data = str(values).replace(',', ' ')
-    cmd = 'sudo python /home/pi/setvalue.py :szi {} {} {}'.format(str(ctrl), str(delay), data)
+    cmd = 'sudo python /home/pi/piRS232/setvalue.py :szi {} {} {}'.format(str(ctrl), str(delay), data)
     return run_cmd(cmd).splitlines()[0].decode("ascii")
-
 
 def reboot_post() -> str:
     myjson = {}
