@@ -18,7 +18,7 @@ can be run independently using **sudo python 'scriptname' 'params'**
 
 **status.py**: takes 1 parameter (number of lutron contrller as a single digit)
 e.g.
-> pi@piname:~ $ sudo python status.py 1<br>
+> pi@piname:~ $ sudo python status.py 1<br> 
 > {"zones":[{"name": "Zone1", "value":0},{"name": "Zone2", "value":0},{"name": "Zone3", "value":0},{"name": "Zone4", "value":0},{"name": "Zone5", "value":0},{"name": "Zone6", "value":0}]}
 
 ## REST Interface
